@@ -1,0 +1,42 @@
+.icon-title-container {
+  &.active-item {
+    background-color: #50d8a5;
+  }
+
+  &.is-collapsed-sidebar {
+    padding: 0.5rem;
+  }
+
+  .title-container {
+    &.active-item {
+      color: #ffffff;
+    }
+
+    &.is-collapsed-sidebar {
+      display: none;
+    }
+  }
+}
+
+.subitem {
+  &.active-item {
+    background-color: #50d8a526;
+  }
+
+  .subitem-text {
+    &.active-item {
+      color: #42c594;
+    }
+  }
+}
+
+svg {
+  &.active-item {
+    fill: #ffffff;
+    color: #ffffff;
+  }
+
+  &.is-collapsed-sidebar {
+    display: none;
+  }
+}
