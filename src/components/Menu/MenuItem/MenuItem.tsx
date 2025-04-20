@@ -1,7 +1,8 @@
 import React from "react";
 import { MenuItemsType } from "../../../types/Menu";
-import { ReactComponent as ArrowDown } from "../../../assets/icons/Icon.Arrow.Vertical.Dark.svg";
+import { ReactComponent as ArrowDown } from "../../../assets/icons/Arrow. Down.svg";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 type MenuItemPropsType = {
   title: string;
@@ -9,6 +10,7 @@ type MenuItemPropsType = {
   submenu?: MenuItemsType[];
   activeItem: string;
   isCollapsed: boolean;
+  routeLink?: string;
   setActiveItem: (title: string) => void;
   handleClick?: (() => void) | null;
 };
@@ -19,9 +21,11 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
   submenu,
   activeItem,
   isCollapsed,
+  routeLink,
   setActiveItem,
   handleClick,
 }) => {
+  const navigate = useNavigate();
   const isActive =
     menuTitle === activeItem ||
     Boolean(submenu?.find((item) => item.title === activeItem));
@@ -42,6 +46,8 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
     } else {
       setActiveItem(menuTitle);
     }
+
+    if (routeLink) navigate(routeLink);
   };
 
   return (
@@ -74,12 +80,12 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
         </div>
         {hasItems && (
           <ArrowDown
-            width={12}
-            height={12}
+            width={24}
+            height={24}
             style={{
               transform: `${isActive ? "rotate(180deg)" : "rotate(0deg)"}`,
             }}
-            className={`arrow-down group-hover:!fill-white group-hover:!color-[#FFFFFF] group-hover:!text-[#FFFFFF] ${isActiveClassName} ${isCollapsedSidebarClassName}`}
+            className={`arrow-down text-[#2D3B4E80] fill-[#2D3B4E80] group-hover:!fill-white group-hover:!color-[#FFFFFF] group-hover:!text-[#FFFFFF] ${isActiveClassName} ${isCollapsedSidebarClassName}`}
           />
         )}
       </div>

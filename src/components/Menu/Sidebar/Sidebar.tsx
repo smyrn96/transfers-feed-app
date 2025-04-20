@@ -1,49 +1,19 @@
 import React, { useState } from "react";
 import LogoTitle from "../LogoTitle/LogoTitle";
-import { ReactComponent as LiveView } from "../../../assets/icons/Live view.svg";
-import { ReactComponent as Scheduled } from "../../../assets/icons/Scheduled.svg";
-import { ReactComponent as Statistics } from "../../../assets/icons/Statistics.svg";
-import { ReactComponent as Revenue } from "../../../assets/icons/Revenue.svg";
-import { ReactComponent as Settings } from "../../../assets/icons/Settings.svg";
-import { ReactComponent as Support } from "../../../assets/icons/Support.svg";
-import { ReactComponent as Collapse } from "../../../assets/icons/Collapse.svg";
-import { MenuItemsType } from "../../../types/Menu";
 import MenuItem from "../MenuItem/MenuItem";
-
-const primaryMenu: MenuItemsType[] = [
-  { title: "Live view", icon: LiveView, submenu: [] },
-  {
-    title: "Scheduled",
-    icon: Scheduled,
-    submenu: [
-      { title: "Opportunities" },
-      { title: "Early check in" },
-      { title: "Other sub item" },
-    ],
-  },
-  { title: "Statistics", icon: Statistics, submenu: [] },
-  { title: "Revenue", icon: Revenue, submenu: [] },
-  {
-    title: "Settings",
-    icon: Settings,
-    submenu: [
-      { title: "Other sub item 1" },
-      { title: "Other sub item 2" },
-      { title: "Other sub item 3" },
-    ],
-  },
-];
-
-const secondaryMenu: MenuItemsType[] = [
-  { title: "Support", icon: Support, submenu: [] },
-  { title: "Collapse menu", icon: Collapse, submenu: [] },
-];
+import { linksMapping, primaryMenu, secondaryMenu } from "../../../constants";
+import { useLocation } from "react-router-dom";
+import { getLastPathSegment, isValidRedirectLink } from "../../../hooks";
 
 const Sidebar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>("");
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
+  const activeSegment = getLastPathSegment(location.pathname);
+  const activeItemDefault = isValidRedirectLink(activeSegment)
+    ? linksMapping[activeSegment as keyof typeof linksMapping]
+    : "";
 
-  console.log(isCollapsed);
+  const [activeItem, setActiveItem] = useState<string>(activeItemDefault);
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
     <div
@@ -56,7 +26,7 @@ const Sidebar: React.FC = () => {
 
           <div className="flex flex-col gap-[2px]">
             {primaryMenu.map((menuItem) => {
-              const { title, icon, submenu } = menuItem;
+              const { title, icon, submenu, routeLink } = menuItem;
               return (
                 <MenuItem
                   title={title}
@@ -64,6 +34,7 @@ const Sidebar: React.FC = () => {
                   submenu={submenu}
                   activeItem={activeItem}
                   isCollapsed={isCollapsed}
+                  routeLink={routeLink}
                   setActiveItem={setActiveItem}
                 />
               );
@@ -72,7 +43,7 @@ const Sidebar: React.FC = () => {
         </div>
         <div className="flex flex-col gap-[2px]">
           {secondaryMenu.map((menuItem) => {
-            const { title, icon, submenu } = menuItem;
+            const { title, icon, submenu, routeLink } = menuItem;
             const hasDivider = title === "Collapse menu";
 
             return (
@@ -87,6 +58,7 @@ const Sidebar: React.FC = () => {
                   activeItem={activeItem}
                   setActiveItem={setActiveItem}
                   isCollapsed={isCollapsed}
+                  routeLink={routeLink}
                   handleClick={
                     hasDivider ? () => setIsCollapsed(!isCollapsed) : null
                   }

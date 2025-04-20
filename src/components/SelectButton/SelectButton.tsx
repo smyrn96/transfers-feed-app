@@ -1,5 +1,5 @@
 import React from "react";
-import { ReactComponent as ArrowDown } from "../../assets/icons/Icon.Arrow.Vertical.Dark.svg";
+import { ReactComponent as ArrowDown } from "../../assets/icons/Arrow. Down.svg";
 
 type SelectButtonPropsType = {
   text: string;
@@ -31,7 +31,7 @@ const SelectButton: React.FC<SelectButtonPropsType> = ({
     >
       {Icon && <Icon className="w-full h-full" />}
       <span className="text-sm">{text}</span>
-      <ArrowDown className=" h-[18px]" />
+      <ArrowDown className=" h-[18px] text-[#2D3B4E80] fill-[#2D3B4E80]" />
     </button>
   );
 };
