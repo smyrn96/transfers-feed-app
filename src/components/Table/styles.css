@@ -1,0 +1,11 @@
+table td:first-of-type,
+th:first-of-type {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+table td:last-of-type,
+th:last-of-type {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}

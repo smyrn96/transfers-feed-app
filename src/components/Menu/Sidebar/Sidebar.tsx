@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LogoTitle from "../LogoTitle/LogoTitle";
 import MenuItem from "../MenuItem/MenuItem";
 import { linksMapping, primaryMenu, secondaryMenu } from "../../../constants";
 import { useLocation } from "react-router-dom";
 import { getLastPathSegment, isValidRedirectLink } from "../../../hooks";
+import { useTransferContext } from "../../../context/TransferContext";
 
 const Sidebar: React.FC = () => {
+  const transferContext = useTransferContext();
   const location = useLocation();
   const activeSegment = getLastPathSegment(location.pathname);
   const activeItemDefault = isValidRedirectLink(activeSegment)
@@ -14,6 +16,11 @@ const Sidebar: React.FC = () => {
 
   const [activeItem, setActiveItem] = useState<string>(activeItemDefault);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const { setIsExpanded } = transferContext;
+
+  useEffect(() => {
+    setIsExpanded(!isCollapsed);
+  }, [isCollapsed, setIsExpanded]);
 
   return (
     <div
@@ -21,7 +28,10 @@ const Sidebar: React.FC = () => {
       className="fixed top-0	left-0 h-full rounded-tr-lg rounded-br-lg bg-[#FFFFFF] sidebar-shadow z-[9999] flex flex-col"
     >
       <div className="p-4 flex flex-col justify-between h-full">
-        <div className="flex flex-col gap-8">
+        <div
+          className="flex flex-col gap-8"
+          style={{ gap: isCollapsed ? "2.5rem" : "2rem" }}
+        >
           <LogoTitle isCollapsed={isCollapsed} />
 
           <div className="flex flex-col gap-[2px]">

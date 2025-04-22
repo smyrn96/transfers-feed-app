@@ -32,3 +32,37 @@ export const getLastPathSegment = (pathname: string) => {
 
   return returnSegments;
 };
+
+export const formatDateHelper = (dateString: string): string => {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  const isSameDay = (d1: Date, d2: Date) =>
+    d1.getDate() === d2.getDate() &&
+    d1.getMonth() === d2.getMonth() &&
+    d1.getFullYear() === d2.getFullYear();
+
+  const tomorrow = new Date();
+  tomorrow.setDate(now.getDate() + 1);
+
+  let prefix = "";
+
+  if (isSameDay(date, now)) {
+    prefix = "Today";
+  } else if (isSameDay(date, tomorrow)) {
+    prefix = "Tomorrow";
+  } else {
+    prefix = date.toLocaleDateString(undefined, {
+      weekday: "short", // e.g., "Mon"
+    });
+  }
+
+  const day = date.getDate();
+  const month = date.toLocaleString(undefined, { month: "long" });
+  const time = date.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return `${prefix}, ${day} ${month}, ${time}`;
+};

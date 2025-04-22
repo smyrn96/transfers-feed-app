@@ -1,7 +1,7 @@
 export type Transfer = {
   id: number;
   datetime: string;
-  category: string;
+  category: CategoryType;
   traveler_photo: string;
   traveler_first_name: string;
   traveler_last_name: string;
@@ -36,3 +36,11 @@ export type TransferDetails = {
     country: string;
   };
 };
+
+export type OpportunityType =
+  | "baby"
+  | "transfer"
+  | "early-check-in"
+  | "late-check-out";
+
+export type CategoryType = "Arrival" | "Departure" | "In City";
