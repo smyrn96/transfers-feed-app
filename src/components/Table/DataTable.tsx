@@ -7,6 +7,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  GroupingState,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -18,6 +19,7 @@ type GenericTableProps<TData> = {
   columns: ColumnDef<TData>[];
   defaultSorting?: SortingState;
   defaultPageSize?: number;
+  defaultGrouping?: string[];
 };
 
 function DataTable<TData>({
@@ -25,15 +27,21 @@ function DataTable<TData>({
   columns,
   defaultSorting = [],
   defaultPageSize = 10,
+  defaultGrouping = [],
 }: GenericTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>(defaultSorting);
+  const [grouping, setGrouping] = useState<GroupingState>(
+    defaultGrouping ?? []
+  );
 
   const table = useReactTable<TData>({
     data,
     columns,
     state: {
       sorting,
+      grouping,
     },
+    onGroupingChange: setGrouping,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -42,6 +50,7 @@ function DataTable<TData>({
       pagination: {
         pageSize: defaultPageSize,
       },
+      grouping: defaultGrouping ?? [],
     },
     debugTable: true,
   });

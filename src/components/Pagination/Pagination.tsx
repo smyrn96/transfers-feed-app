@@ -30,6 +30,7 @@ function Pagination<TData>({ table }: PaginationPropsType<TData>) {
                   fontWeight: isCurrentPage ? 600 : 400,
                 }}
                 className="w-[38px] h-[38px] bg-[#FFFFFF] text-[#2D3B4E80] text-[14px]"
+                onClick={() => table.setPageIndex(index)}
               >
                 {page + 1}
               </button>

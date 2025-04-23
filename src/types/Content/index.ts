@@ -41,6 +41,7 @@ export type OpportunityType =
   | "baby"
   | "transfer"
   | "early-check-in"
-  | "late-check-out";
+  | "late-check-out"
+  | "none";
 
 export type CategoryType = "Arrival" | "Departure" | "In City";

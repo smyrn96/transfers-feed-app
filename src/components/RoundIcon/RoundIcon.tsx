@@ -23,7 +23,7 @@ const icons = {
   "late-check-out": (
     <LateCheckOut width={24} height={24} className="text-[#9098A1]" />
   ),
-
+  none: <div className="w-[6px] h-[2px] bg-[#9098A1]"></div>,
   Arrival: <Departure />,
   Departure: <Arrival />,
   "In City": <Transferring />,
@@ -31,11 +31,20 @@ const icons = {
 
 const RoundIcon: React.FC<RoundIconPropsType> = ({ opportunity, category }) => {
   const icon = opportunity ? icons[opportunity] : category && icons[category];
+  const noOpportunities = opportunity === "none";
+
+  console.log(noOpportunities, opportunity);
 
   return (
     <>
       {opportunity ? (
-        <div className="w-[38px] h-[38px] rounded-full bg-[#F4F5F6] flex justify-center items-center">
+        <div
+          style={{
+            background: noOpportunities ? "#FFFFFF" : "",
+            border: noOpportunities ? "3px solid #F4F5F6" : "",
+          }}
+          className="w-[38px] h-[38px] rounded-full bg-[#F4F5F6] flex justify-center items-center"
+        >
           {icon}
         </div>
       ) : (
