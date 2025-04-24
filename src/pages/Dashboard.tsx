@@ -5,7 +5,7 @@ import { getTransfers } from "../api/services/user.service";
 
 const Dashboard: React.FC = () => {
   const { data, isLoading, error } = useQueryHook({
-    query: "transfers_list",
+    query: ["transfers_list"],
     serviceFunction: getTransfers,
   });
 

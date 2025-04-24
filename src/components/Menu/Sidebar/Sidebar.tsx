@@ -25,7 +25,7 @@ const Sidebar: React.FC = () => {
   return (
     <div
       style={{ width: isCollapsed ? "82px" : "260px" }}
-      className="fixed top-0	left-0 h-full rounded-tr-lg rounded-br-lg bg-[#FFFFFF] sidebar-shadow z-[9999] flex flex-col"
+      className="fixed top-0 left-0 h-full rounded-tr-lg rounded-br-lg bg-[#FFFFFF] sidebar-shadow z-[1] flex flex-col"
     >
       <div className="p-4 flex flex-col justify-between h-full">
         <div

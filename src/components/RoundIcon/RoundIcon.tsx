@@ -33,8 +33,6 @@ const RoundIcon: React.FC<RoundIconPropsType> = ({ opportunity, category }) => {
   const icon = opportunity ? icons[opportunity] : category && icons[category];
   const noOpportunities = opportunity === "none";
 
-  console.log(noOpportunities, opportunity);
-
   return (
     <>
       {opportunity ? (

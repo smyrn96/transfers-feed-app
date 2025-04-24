@@ -20,6 +20,7 @@ type GenericTableProps<TData> = {
   defaultSorting?: SortingState;
   defaultPageSize?: number;
   defaultGrouping?: string[];
+  setRowClicked: (rowId: number) => void;
 };
 
 function DataTable<TData>({
@@ -28,6 +29,7 @@ function DataTable<TData>({
   defaultSorting = [],
   defaultPageSize = 10,
   defaultGrouping = [],
+  setRowClicked,
 }: GenericTableProps<TData>) {
   const [sorting, setSorting] = useState<SortingState>(defaultSorting);
   const [grouping, setGrouping] = useState<GroupingState>(
@@ -115,24 +117,30 @@ function DataTable<TData>({
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr
-                style={{ boxShadow: "0px 1px 1px 0px #2D3B4E0F" }}
-                key={row.id}
-                className="bg-[#FFFFFF] rounded-md "
-              >
-                {row.getVisibleCells().map((cell) => (
-                  <td
-                    key={cell.id}
-                    className={`px-4 py-2 ${
-                      cell.column.columnDef.meta?.className || ""
-                    }`}
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
+            {table.getRowModel().rows.map((row) => {
+              return (
+                <tr
+                  style={{ boxShadow: "0px 1px 1px 0px #2D3B4E0F" }}
+                  key={row.id}
+                  className="bg-[#FFFFFF] rounded-md "
+                  onClick={() => setRowClicked(Number(row.id))}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td
+                      key={cell.id}
+                      className={`px-4 py-2 ${
+                        cell.column.columnDef.meta?.className || ""
+                      }`}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

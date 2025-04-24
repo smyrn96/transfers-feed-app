@@ -11,8 +11,8 @@ function App() {
 
   return (
     <TransferProvider>
-      <MainLayout>
-        <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}>
+        <MainLayout>
           <Routes>
             <Route path="/" element={<Navigate to="/scheduled" />} />
             <Route path="/scheduled" element={<Dashboard />} />
@@ -58,8 +58,8 @@ function App() {
             />
             <Route path="*" element={<Navigate to="/scheduled" replace />} />
           </Routes>
-        </QueryClientProvider>
-      </MainLayout>
+        </MainLayout>
+      </QueryClientProvider>
     </TransferProvider>
   );
 }

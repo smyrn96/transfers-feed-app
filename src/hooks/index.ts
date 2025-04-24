@@ -3,13 +3,19 @@ import { AxiosResponse } from "axios";
 import { validLinks } from "../constants";
 
 type useQueryHookType = {
-  query: string;
+  query: string[];
+  enabled?: boolean;
   serviceFunction: () => Promise<AxiosResponse<any, any>>;
 };
 
-export const useQueryHook = ({ query, serviceFunction }: useQueryHookType) =>
+export const useQueryHook = ({
+  query,
+  serviceFunction,
+  enabled = true,
+}: useQueryHookType) =>
   useQuery({
-    queryKey: [query],
+    queryKey: query,
+    enabled: enabled,
     queryFn: async () => {
       const { data } = await serviceFunction();
       return data;

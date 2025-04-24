@@ -3,6 +3,7 @@ import { Transfer } from "../../types/Content";
 import ContentWrapper from "../ContentWrapper/ContentWrapper";
 import DataTable from "../Table/DataTable";
 import { columns } from "./constants";
+import { useTransferContext } from "../../context/TransferContext";
 
 type MainContentPropsType = {
   data?: Transfer[];
@@ -24,6 +25,14 @@ const MainContent: React.FC<MainContentPropsType> = ({
   isLoading,
   error,
 }) => {
+  const transferContext = useTransferContext();
+  const { setSelectedTransferId } = transferContext;
+
+  const selectedRowHandler = (rowId: number) => {
+    const selectedTransfer = data && data[rowId].id;
+    setSelectedTransferId(selectedTransfer ?? null);
+  };
+
   return (
     <ContentWrapper error={error} isLoading={isLoading}>
       {data && (
@@ -34,6 +43,7 @@ const MainContent: React.FC<MainContentPropsType> = ({
             defaultSorting={[{ id: "arrival", desc: true }]}
             defaultPageSize={5}
             defaultGrouping={[]}
+            setRowClicked={selectedRowHandler}
           />
         </div>
       )}

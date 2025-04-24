@@ -60,3 +60,10 @@ export const secondaryMenu: MenuItemsType[] = [
   { title: "Support", icon: Support, submenu: [], routeLink: "/support" },
   { title: "Collapse menu", icon: Collapse, submenu: [] },
 ];
+
+export const opportunitiesMapping = [
+  "Babies",
+  "Return transfer",
+  "Early check-in",
+  "Late check-out",
+];
