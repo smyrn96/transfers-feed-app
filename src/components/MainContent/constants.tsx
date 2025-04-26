@@ -143,7 +143,10 @@ export const columns: ColumnDef<Transfer>[] = [
             opportunitiesArray.map((opportunity) => {
               return (
                 opportunity.value && (
-                  <RoundIcon opportunity={opportunity.variant} />
+                  <RoundIcon
+                    key={opportunity.variant}
+                    opportunity={opportunity.variant}
+                  />
                 )
               );
             })

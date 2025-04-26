@@ -13,7 +13,14 @@ type MainLayoutPropsType = {
 const MainLayout: React.FC<MainLayoutPropsType> = ({ children }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const transferContext = useTransferContext();
-  const { selectedTransferId, setSelectedTransferId } = transferContext;
+  const {
+    selectedTransferId,
+    setSelectedTransferId,
+    setIsExpanded,
+    isExpanded,
+  } = transferContext;
+
+  console.log(isExpanded);
 
   const { data: transfer } = useQueryHook({
     enabled: selectedTransferId !== null,
@@ -29,14 +36,15 @@ const MainLayout: React.FC<MainLayoutPropsType> = ({ children }) => {
 
   return (
     <div>
-      <TopHeader />
+      <TopHeader setIsExpandedHandler={() => setIsExpanded(true)} />
       <Sidebar />
       {isOpenModal && (
         <TransferModal
           transfer={transfer}
-          isOpen={isOpenModal}
-          setIsOpen={setIsOpenModal}
-          closeHandler={() => setSelectedTransferId(null)}
+          closeHandler={() => {
+            setIsOpenModal(false);
+            setSelectedTransferId(null);
+          }}
         />
       )}
       {children}

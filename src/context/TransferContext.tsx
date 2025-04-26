@@ -1,3 +1,4 @@
+import { useResponsive } from "ahooks";
 import { createContext, useContext, useState, ReactNode } from "react";
 
 type TransferContextType = {
@@ -12,7 +13,12 @@ const TransferContext = createContext<TransferContextType | undefined>(
 );
 
 export const TransferProvider = ({ children }: { children: ReactNode }) => {
-  const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const responsive = useResponsive();
+  const { md, lg, sm } = responsive;
+  const isSmallScreens = !md && !lg && !sm;
+  const [isExpanded, setIsExpanded] = useState<boolean>(
+    isSmallScreens ? false : true
+  );
   const [selectedTransferId, setSelectedTransferId] = useState<number | null>(
     null
   );

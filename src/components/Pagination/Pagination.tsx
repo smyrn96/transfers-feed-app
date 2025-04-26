@@ -20,6 +20,7 @@ function Pagination<TData>({ table }: PaginationPropsType<TData>) {
 
             return (
               <button
+                key={page}
                 style={{
                   borderTopLeftRadius: isFirst ? "4px" : "",
                   borderBottomLeftRadius: isFirst ? "4px" : "",

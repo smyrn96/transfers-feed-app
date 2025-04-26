@@ -8,15 +8,11 @@ import TransferDetailsGrid from "./TransferDetails";
 
 type TransferModalPropsType = {
   transfer: Transfer;
-  isOpen: boolean;
-  setIsOpen: (isOpen: boolean) => void;
   closeHandler: () => void;
 };
 
 const TransferModal: React.FC<TransferModalPropsType> = ({
   transfer,
-  isOpen,
-  setIsOpen,
   closeHandler,
 }) => {
   console.log(transfer);
@@ -44,6 +40,9 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
     <div
       style={{ backdropFilter: "blur(21.746253967285156px)" }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-[#2D3B4ED9]"
+      onClick={() => {
+        closeHandler();
+      }}
     >
       <div
         style={{ boxShadow: "0px 2px 10px 0px #19283E80" }}
@@ -75,7 +74,6 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
         <button
           onClick={() => {
             closeHandler();
-            setIsOpen(false);
           }}
           className="absolute top-6 right-6 rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
         >
