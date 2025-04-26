@@ -4,6 +4,7 @@ import { useQueryHook } from "../../hooks";
 import { getSingleTransferDetails } from "../../api/services/user.service";
 import PersonalInfo from "./PersonalInfo";
 import ImageFullName from "./ImageFullName";
+import TransferDetailsGrid from "./TransferDetails";
 
 type TransferModalPropsType = {
   transfer: Transfer;
@@ -28,6 +29,7 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
     return_transfer,
     early_checkin,
     late_checkout,
+    datetime,
   } = transfer ?? {};
 
   const { data: transferDetails } = useQueryHook({
@@ -65,14 +67,17 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
             late_checkout={late_checkout}
           />
         </div>
-        <div></div>
         <div className="h-full bg-[#2D3B4E14] w-[1px]"></div>
+        <TransferDetailsGrid
+          transferDetails={transferDetails}
+          datetime={datetime}
+        />
         <button
           onClick={() => {
             closeHandler();
             setIsOpen(false);
           }}
-          className="absolute top-3 right-3 rounded-full w-[30px] h-[30px] bg-[#2D3B4E0D] flex justify-center items-center"
+          className="absolute top-6 right-6 rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
         >
           <CloseIcon width={20} height={20} />
         </button>

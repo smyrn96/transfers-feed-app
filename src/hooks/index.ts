@@ -39,7 +39,10 @@ export const getLastPathSegment = (pathname: string) => {
   return returnSegments;
 };
 
-export const formatDateHelper = (dateString: string): string => {
+export const formatDateHelper = (
+  dateString: string,
+  isDayMonth?: boolean
+): string => {
   const date = new Date(dateString);
   const now = new Date();
 
@@ -70,5 +73,20 @@ export const formatDateHelper = (dateString: string): string => {
     minute: "2-digit",
   });
 
-  return `${prefix}, ${day} ${month}, ${time}`;
+  const isLessThanTen = day < 10 ? `0${day}` : day;
+
+  return !isDayMonth
+    ? `${prefix}, ${day} ${month}, ${time}`
+    : `${month} ${isLessThanTen}`;
+};
+
+export const extractTime = (datetime: string) => {
+  const date = new Date(datetime);
+
+  const time = date.toLocaleTimeString(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  return time;
 };
