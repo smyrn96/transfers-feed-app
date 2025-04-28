@@ -11,6 +11,7 @@ type MenuItemPropsType = {
   activeItem: string;
   isCollapsed: boolean;
   routeLink?: string;
+  isSmallScreens: boolean;
   setActiveItem: (title: string) => void;
   handleClick?: (() => void) | null;
 };
@@ -22,6 +23,7 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
   activeItem,
   isCollapsed,
   routeLink,
+  isSmallScreens,
   setActiveItem,
   handleClick,
 }) => {
@@ -30,10 +32,12 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
     menuTitle === activeItem ||
     Boolean(submenu?.find((item) => item.title === activeItem));
   const hasItems = submenu && Boolean(submenu.length);
-  const isActiveClassName = isActive ? "active-item" : "";
+  const isActiveClassName = isActive && !isSmallScreens ? "active-item" : "";
   const isCollapseMenuIcon = menuTitle === "Collapse menu";
-  const isCollapseMenuClassName = isCollapseMenuIcon ? "is-collapsed-menu" : "";
-  const isCollapsedSidebarClassName = isCollapsed ? "is-collapsed-sidebar" : "";
+  const isCollapseMenuClassName =
+    isCollapseMenuIcon && !isSmallScreens ? "is-collapsed-menu" : "";
+  const isCollapsedSidebarClassName =
+    isCollapsed && !isSmallScreens ? "is-collapsed-sidebar" : "";
 
   const handleClickMenuItem = (): void => {
     if (handleClick) {
@@ -73,12 +77,16 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
             />
           )}
           <p
+            style={{
+              color: isSmallScreens ? "#2D3B4E7A" : "",
+              fontWeight: isSmallScreens ? "600" : "",
+            }}
             className={`title-container text-[15px] text-[#2D3B4E7A] group-hover:!text-[#FFFFFF] ${isActiveClassName} ${isCollapsedSidebarClassName}`}
           >
             {menuTitle}
           </p>
         </div>
-        {hasItems && (
+        {hasItems && !isSmallScreens && (
           <ArrowDown
             width={24}
             height={24}
@@ -89,7 +97,7 @@ const MenuItem: React.FC<MenuItemPropsType> = ({
           />
         )}
       </div>
-      {isActive && !isCollapsed && (
+      {isActive && !isCollapsed && !isSmallScreens && (
         <div className="flex flex-col gap-[2px]">
           {hasItems &&
             submenu.map((subMenuItem) => {

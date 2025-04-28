@@ -26,7 +26,7 @@ const TopHeader: React.FC<TopHeaderPropsType> = ({ setIsExpandedHandler }) => {
     <>
       {isSmallScreens ? (
         <div
-          className="top-header h-[64px] w-full fixed top-0 bg-[#FFFFFF] rounded-br-lg rounded-bl-lg z-[9999]"
+          className="top-header h-[64px] w-full fixed top-0 bg-[#FFFFFF] rounded-br-lg rounded-bl-lg z-[9997]"
           style={{ boxShadow: "0px 0px 8px 0px #2D3B4E1A" }}
         >
           <div className="flex flex-row w-full h-full justify-between items-center gap-4 px-6">

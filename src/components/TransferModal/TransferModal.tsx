@@ -77,7 +77,7 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
           }}
           className="absolute top-6 right-6 rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
         >
-          <CloseIcon width={20} height={20} />
+          <CloseIcon width={20} height={20} className="text-[#2D3B4E80]" />
         </button>
       </div>
     </div>
