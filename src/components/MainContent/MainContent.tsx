@@ -4,6 +4,8 @@ import ContentWrapper from "../ContentWrapper/ContentWrapper";
 import DataTable from "../Table/DataTable";
 import { columns } from "./constants";
 import { useTransferContext } from "../../context/TransferContext";
+import { useResponsive } from "ahooks";
+import TransferCard from "../TransferCard.tsx/TransferCard";
 
 type MainContentPropsType = {
   data?: Transfer[];
@@ -27,6 +29,9 @@ const MainContent: React.FC<MainContentPropsType> = ({
 }) => {
   const transferContext = useTransferContext();
   const { setSelectedTransferId } = transferContext;
+  const responsive = useResponsive();
+  const { md, lg, sm } = responsive;
+  const isSmallScreens = !md && !lg && !sm;
 
   const selectedRowHandler = (rowId: number) => {
     const selectedTransfer = data && data[rowId].id;
@@ -36,15 +41,27 @@ const MainContent: React.FC<MainContentPropsType> = ({
   return (
     <ContentWrapper error={error} isLoading={isLoading}>
       {data && (
-        <div className="flex flex-col pl-10">
-          <DataTable
-            data={data}
-            columns={columns}
-            defaultSorting={[{ id: "arrival", desc: true }]}
-            defaultPageSize={5}
-            defaultGrouping={[]}
-            setRowClicked={selectedRowHandler}
-          />
+        <div
+          style={{
+            gap: isSmallScreens ? "0.75rem" : "",
+            paddingBottom: isSmallScreens ? "2rem" : "",
+          }}
+          className="flex flex-col pl-10"
+        >
+          {isSmallScreens ? (
+            data.map((transfer) => {
+              return <TransferCard transfer={transfer} />;
+            })
+          ) : (
+            <DataTable
+              data={data}
+              columns={columns}
+              defaultSorting={[{ id: "arrival", desc: true }]}
+              defaultPageSize={5}
+              defaultGrouping={[]}
+              setRowClicked={selectedRowHandler}
+            />
+          )}
         </div>
       )}
     </ContentWrapper>

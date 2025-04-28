@@ -36,7 +36,7 @@ const ContentWrapper: React.FC<ContentWrapperPropsType> = ({
         backdropFilter: "blur(21.746253967285156px)",
         paddingLeft: isSmallScreens ? 0 : isExpanded ? "260px" : "82px",
         height: contentHeight,
-        paddingTop: isSmallScreens ? "72px" : "",
+        paddingTop: isSmallScreens ? "6rem" : "",
       }}
     >
       {isLoading ? (
