@@ -90,3 +90,16 @@ export const extractTime = (datetime: string) => {
 
   return time;
 };
+
+export const areDifferentDays = (
+  datetime1: string,
+  datetime2: string
+): boolean => {
+  const date1 = new Date(datetime1);
+  const date2 = new Date(datetime2);
+  return (
+    date1.getFullYear() !== date2.getFullYear() ||
+    date1.getMonth() !== date2.getMonth() ||
+    date1.getDate() !== date2.getDate()
+  );
+};

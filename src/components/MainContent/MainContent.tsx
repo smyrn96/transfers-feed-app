@@ -6,6 +6,7 @@ import { columns } from "./constants";
 import { useTransferContext } from "../../context/TransferContext";
 import { useResponsive } from "ahooks";
 import TransferCard from "../TransferCard.tsx/TransferCard";
+import { areDifferentDays } from "../../hooks";
 
 type MainContentPropsType = {
   data?: Transfer[];
@@ -45,13 +46,24 @@ const MainContent: React.FC<MainContentPropsType> = ({
           style={{
             gap: isSmallScreens ? "0.75rem" : "",
             paddingBottom: isSmallScreens ? "2rem" : "",
+            paddingLeft: isSmallScreens ? "0" : "",
+            alignItems: isSmallScreens ? "center" : "",
           }}
           className="flex flex-col pl-10"
         >
           {isSmallScreens ? (
-            data.map((transfer) => {
-              return <TransferCard transfer={transfer} />;
-            })
+            <>
+              {data.map((transfer, index) => {
+                const { datetime } = transfer ?? {};
+                const showDate =
+                  index === 0 ||
+                  areDifferentDays(datetime, data[index - 1]?.datetime)
+                    ? datetime
+                    : "";
+
+                return <TransferCard transfer={transfer} datetime={showDate} />;
+              })}
+            </>
           ) : (
             <DataTable
               data={data}
