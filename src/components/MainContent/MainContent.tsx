@@ -61,7 +61,13 @@ const MainContent: React.FC<MainContentPropsType> = ({
                     ? datetime
                     : "";
 
-                return <TransferCard transfer={transfer} datetime={showDate} />;
+                return (
+                  <TransferCard
+                    transfer={transfer}
+                    datetime={showDate}
+                    key={transfer.id}
+                  />
+                );
               })}
             </>
           ) : (

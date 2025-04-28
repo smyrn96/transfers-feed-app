@@ -1,6 +1,8 @@
 import { formatDateHelper } from "../../hooks";
 import { Transfer } from "../../types/Content";
 import { ReactComponent as CalendarIcon } from "../../assets/icons/smallCalendar.svg";
+import PersonalInfo from "../TransferModal/PersonalInfo";
+import ImageNameCategory from "./ImageNameCategory";
 
 type TransferCardPropsType = {
   transfer: Transfer;
@@ -11,7 +13,20 @@ const TransferCard: React.FC<TransferCardPropsType> = ({
   transfer,
   datetime,
 }) => {
-  const { location_title } = transfer ?? {};
+  const {
+    location_title,
+    traveler_first_name,
+    traveler_last_name,
+    traveler_photo,
+    property_title,
+    category,
+    babies,
+    return_transfer,
+    early_checkin,
+    late_checkout,
+    datetime: date,
+  } = transfer ?? {};
+
   return (
     <>
       {Boolean(datetime) && (
@@ -24,9 +39,27 @@ const TransferCard: React.FC<TransferCardPropsType> = ({
       )}
       <div
         style={{ boxShadow: "0px 1px 1px 0px #2D3B4E0F" }}
-        className="w-[90%] h-[310px] bg-[#FFFFFF] rounded-md"
+        className="w-[90%] bg-[#FFFFFF] rounded-md"
       >
-        {location_title}
+        <div className="p-6">
+          <ImageNameCategory
+            traveler_first_name={traveler_first_name}
+            traveler_last_name={traveler_last_name}
+            traveler_photo={traveler_photo}
+            category={category}
+          />
+          <div className="mt-4">
+            <PersonalInfo
+              datetime={date}
+              location_title={location_title}
+              property_title={property_title}
+              babies={babies}
+              return_transfer={return_transfer}
+              early_checkin={early_checkin}
+              late_checkout={late_checkout}
+            />
+          </div>
+        </div>
       </div>
     </>
   );
