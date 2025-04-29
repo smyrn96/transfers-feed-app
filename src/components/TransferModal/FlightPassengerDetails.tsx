@@ -8,6 +8,7 @@ type FlightPassengerDetailsPropsType = {
   babyseats: number;
   luggage: number;
   hand_luggage: number;
+  isSmallScreens?: boolean;
 };
 
 const FlightPassengerDetails: React.FC<FlightPassengerDetailsPropsType> = ({
@@ -15,6 +16,7 @@ const FlightPassengerDetails: React.FC<FlightPassengerDetailsPropsType> = ({
   babyseats,
   luggage,
   hand_luggage,
+  isSmallScreens,
 }) => {
   const detailsItems = [
     { icon: <PassengersIcon />, num: passengers },
@@ -24,7 +26,14 @@ const FlightPassengerDetails: React.FC<FlightPassengerDetailsPropsType> = ({
   ];
 
   return (
-    <div className="max-w-[284px] bg-[#2D3B4E0A] rounded-[18px] flex flex-row gap-5 py-[0.6rem] px-5 mt-6">
+    <div
+      style={{
+        maxWidth: isSmallScreens ? "320px" : "",
+        border: isSmallScreens ? "1px solid #2D3B4E14" : "",
+        background: isSmallScreens ? "none" : "",
+      }}
+      className="max-w-[284px] bg-[#2D3B4E0A] rounded-[18px] flex flex-row gap-5 py-[0.6rem] px-5 mt-6"
+    >
       {detailsItems.map((item) => {
         return (
           <div className="flex flex-row items-center gap-2">

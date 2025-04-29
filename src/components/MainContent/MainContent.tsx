@@ -66,6 +66,7 @@ const MainContent: React.FC<MainContentPropsType> = ({
                     transfer={transfer}
                     datetime={showDate}
                     key={transfer.id}
+                    setCardClicked={selectedRowHandler}
                   />
                 );
               })}

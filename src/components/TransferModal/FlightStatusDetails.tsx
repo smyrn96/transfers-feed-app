@@ -5,12 +5,14 @@ type FlightStatusDetailsPropsType = {
   flight_number: string;
   flight_status: string;
   flight_time: string;
+  isSmallScreens?: boolean;
 };
 
 const FlightStatusDetails: React.FC<FlightStatusDetailsPropsType> = ({
   flight_number,
   flight_status,
   flight_time,
+  isSmallScreens,
 }) => {
   const detailsItems = [
     { icon: <FlightNumberIcon />, label: flight_number },
@@ -26,7 +28,14 @@ const FlightStatusDetails: React.FC<FlightStatusDetailsPropsType> = ({
       : "";
 
   return (
-    <div className="max-w-[284px] bg-[#2D3B4E0A] rounded-[18px] flex flex-row gap-3 py-[0.6rem] px-5 mt-2">
+    <div
+      style={{
+        maxWidth: isSmallScreens ? "320px" : "",
+        border: isSmallScreens ? "1px solid #2D3B4E14" : "",
+        background: isSmallScreens ? "none" : "",
+      }}
+      className="max-w-[284px] bg-[#2D3B4E0A] rounded-[18px] flex flex-row gap-3 py-[0.6rem] px-5 mt-2"
+    >
       {detailsItems.map((item, index) => {
         const isLastItem = index === 2;
         const isFlightStatus = item.icon === "";

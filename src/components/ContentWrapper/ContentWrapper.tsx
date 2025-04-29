@@ -37,6 +37,7 @@ const ContentWrapper: React.FC<ContentWrapperPropsType> = ({
         paddingLeft: isSmallScreens ? 0 : isExpanded ? "260px" : "82px",
         height: contentHeight,
         paddingTop: isSmallScreens ? "4.5rem" : "",
+        overflow: isSmallScreens ? "hidden" : "auto",
       }}
     >
       {isLoading ? (
