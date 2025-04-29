@@ -15,6 +15,7 @@ type PersonalInfoPropsType = {
   property_title?: string;
   datetime?: string;
   location_title?: string;
+  isSmallScreens?: boolean;
 };
 
 const PersonalInfo: React.FC<PersonalInfoPropsType> = ({
@@ -26,6 +27,7 @@ const PersonalInfo: React.FC<PersonalInfoPropsType> = ({
   property_title,
   datetime,
   location_title,
+  isSmallScreens,
 }) => {
   const isCard = Boolean(property_title && datetime && location_title);
   const personalInfo = !isCard
@@ -81,8 +83,6 @@ const PersonalInfo: React.FC<PersonalInfoPropsType> = ({
           ],
         },
       ];
-
-  console.log(isCard);
 
   const noOpportunities = !(
     personalInfo[3].value as { value: boolean; variant: OpportunityType }[]

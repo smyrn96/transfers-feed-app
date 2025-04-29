@@ -34,6 +34,8 @@ const MainLayout: React.FC<MainLayoutPropsType> = ({ children }) => {
     }
   }, [selectedTransferId]);
 
+  console.log(selectedTransferId);
+
   return (
     <div>
       <TopHeader setIsExpandedHandler={() => setIsExpanded(true)} />

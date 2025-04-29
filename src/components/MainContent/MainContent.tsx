@@ -34,8 +34,8 @@ const MainContent: React.FC<MainContentPropsType> = ({
   const { md, lg, sm } = responsive;
   const isSmallScreens = !md && !lg && !sm;
 
-  const selectedRowHandler = (rowId: number) => {
-    const selectedTransfer = data && data[rowId].id;
+  const selectedRowHandler = (rowId: number, isCard?: boolean) => {
+    const selectedTransfer = isCard ? rowId : data && data[rowId].id;
     setSelectedTransferId(selectedTransfer ?? null);
   };
 

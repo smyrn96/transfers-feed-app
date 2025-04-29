@@ -7,7 +7,7 @@ import ImageNameCategory from "./ImageNameCategory";
 type TransferCardPropsType = {
   transfer: Transfer;
   datetime: string;
-  setCardClicked: (id: number) => void;
+  setCardClicked: (id: number, isCard?: boolean) => void;
 };
 
 const TransferCard: React.FC<TransferCardPropsType> = ({
@@ -30,6 +30,8 @@ const TransferCard: React.FC<TransferCardPropsType> = ({
     id,
   } = transfer ?? {};
 
+  console.log(id, traveler_first_name);
+
   return (
     <>
       {Boolean(datetime) && (
@@ -43,7 +45,7 @@ const TransferCard: React.FC<TransferCardPropsType> = ({
       <div
         style={{ boxShadow: "0px 1px 1px 0px #2D3B4E0F" }}
         className="w-[90%] bg-[#FFFFFF] rounded-md"
-        onClick={() => setCardClicked(id)}
+        onClick={() => setCardClicked(id, true)}
       >
         <div className="p-6">
           <ImageNameCategory

@@ -1,4 +1,8 @@
-import { Transfer, TransferDetails } from "../../types/Content";
+import {
+  OpportunityType,
+  Transfer,
+  TransferDetails,
+} from "../../types/Content";
 import { ReactComponent as CloseIcon } from "../../assets/icons/cross.svg";
 import { useQueryHook } from "../../hooks";
 import { getSingleTransferDetails } from "../../api/services/user.service";
@@ -6,6 +10,9 @@ import PersonalInfo from "./PersonalInfo";
 import ImageFullName from "./ImageFullName";
 import TransferDetailsGrid from "./TransferDetails";
 import { useResponsive } from "ahooks";
+import RoundIcon from "../RoundIcon/RoundIcon";
+import { opportunitiesMapping } from "../../constants";
+import TransferCardDetailsGuest from "./TransferCardDetailsGuest";
 
 type TransferModalPropsType = {
   transfer: Transfer;
@@ -31,6 +38,53 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
     late_checkout,
     datetime,
   } = transfer ?? {};
+
+  const opportunitiesArray: { value: boolean; variant: OpportunityType }[] = [
+    {
+      value: babies,
+      variant: "baby",
+    },
+    {
+      value: return_transfer,
+      variant: "transfer",
+    },
+    {
+      value: early_checkin,
+      variant: "early-check-in",
+    },
+    {
+      value: late_checkout,
+      variant: "late-check-out",
+    },
+  ];
+
+  const noOpportunities = !opportunitiesArray.find(
+    (opportunity) => opportunity.value
+  );
+
+  const renderValue = (
+    <div className="flex flex-col gap-2 mt-2">
+      {noOpportunities ? (
+        <RoundIcon opportunity={"none"} />
+      ) : (
+        opportunitiesArray.map((opportunity, index) => {
+          return (
+            opportunity.value && (
+              <div
+                className="flex flex-row items-center gap-4"
+                key={opportunity.variant}
+              >
+                <RoundIcon opportunity={opportunity.variant} />
+                <div className="text-sm text-[#2D3B4E] font-normal">
+                  {opportunitiesMapping[index]}
+                </div>
+              </div>
+            )
+          );
+        })
+      )}
+    </div>
+  );
 
   const { data: transferDetails } = useQueryHook({
     enabled: Boolean(selectedTransferId),
@@ -60,8 +114,8 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
           borderTopLeftRadius: isSmallScreens ? "12px" : "",
           borderTopRightRadius: isSmallScreens ? "12px" : "",
           flexDirection: isSmallScreens ? "column" : "row",
-          // overflowY: isSmallScreens ? "scroll" : "hidden",
-          // paddingBottom: isSmallScreens ? "2rem" : "",
+          overflowY: isSmallScreens ? "scroll" : "hidden",
+          marginTop: isSmallScreens ? "1rem" : "",
         }}
         className="bg-[#FFFFFF] rounded-lg w-full max-w-[990px] h-full max-h-[666px] relative flex flex-row"
       >
@@ -124,6 +178,14 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
             <hr
               style={{ backgroundColor: "#2D3B4E14" }}
               className="w-[90%] text-center !h-px mx-auto"
+            />
+            <TransferCardDetailsGuest
+              traveler_photo={traveler_photo}
+              phone_number={traveler?.phone_number}
+              country={traveler?.country}
+              firstName={firstName}
+              lastName={lastName}
+              renderValue={renderValue}
             />
           </>
         )}
