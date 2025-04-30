@@ -19,7 +19,7 @@ A responsive web app that displays a feed of scheduled guest transfers, grouped 
 ## 📁 Folder Structure
 ```
 src/
-├── api/                 # API service handlers (e.g., axios clients)
+├── api/                 # Mock API
 ├── assets/              # Static assets like images and icons
 ├── components/          # Reusable UI components
 ├── constants/           # App-wide constants and enums
@@ -54,13 +54,19 @@ cd transfers-feed
 npm install
 ```
 
-### 3. Add environment variables
+### 3. Run the API
+```bash
+cd api
+json-server --watch db.json --port 8000 
+```
+
+### 4. Add environment variables
 Create .env file and fill in the API base URL
 ```bash
 REACT_APP_API_URL=https://your-api.onrender.com
 ```
 
-### 4. Start the app locally
+### 5. Start the app locally
 ```bash
 npm start
 ```
