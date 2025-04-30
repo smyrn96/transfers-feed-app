@@ -22,7 +22,7 @@ const MainLayout: React.FC<MainLayoutPropsType> = ({ children }) => {
 
   console.log(isExpanded);
 
-  const { data: transfer } = useQueryHook({
+  const { data: transfer, isLoading } = useQueryHook({
     enabled: selectedTransferId !== null,
     query: ["transfer_list", String(selectedTransferId)],
     serviceFunction: () => getTransfer(Number(selectedTransferId)),
@@ -42,6 +42,7 @@ const MainLayout: React.FC<MainLayoutPropsType> = ({ children }) => {
       <Sidebar />
       {isOpenModal && (
         <TransferModal
+          isLoading={isLoading}
           transfer={transfer}
           closeHandler={() => {
             setIsOpenModal(false);

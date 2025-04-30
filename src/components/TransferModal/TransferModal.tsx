@@ -13,14 +13,17 @@ import { useResponsive } from "ahooks";
 import RoundIcon from "../RoundIcon/RoundIcon";
 import { opportunitiesMapping } from "../../constants";
 import TransferCardDetailsGuest from "./TransferCardDetailsGuest";
+import Loader from "../Loader/Loader";
 
 type TransferModalPropsType = {
   transfer: Transfer;
+  isLoading: boolean;
   closeHandler: () => void;
 };
 
 const TransferModal: React.FC<TransferModalPropsType> = ({
   transfer,
+  isLoading,
   closeHandler,
 }) => {
   const responsive = useResponsive();
@@ -119,74 +122,84 @@ const TransferModal: React.FC<TransferModalPropsType> = ({
         }}
         className="bg-[#FFFFFF] rounded-lg w-full max-w-[990px] h-full max-h-[666px] relative flex flex-row"
       >
-        {!isSmallScreens ? (
-          <>
-            <div className="min-w-[240px] flex flex-col items-center">
-              <ImageFullName
-                traveler_photo={traveler_photo}
-                firstName={firstName}
-                lastName={lastName}
-              />
-              <hr
-                style={{ backgroundColor: "#2D3B4E14" }}
-                className="w-[184px] text-center !h-px"
-              />
-              <PersonalInfo
-                traveler={traveler}
-                babies={babies}
-                return_transfer={return_transfer}
-                early_checkin={early_checkin}
-                late_checkout={late_checkout}
-              />
-            </div>
-            <div className="h-full bg-[#2D3B4E14] w-[1px]"></div>
-            <TransferDetailsGrid
-              transferDetails={transferDetails}
-              datetime={datetime}
-            />
-            <button
-              onClick={() => {
-                closeHandler();
-              }}
-              className="absolute top-6 right-6 rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
-            >
-              <CloseIcon width={20} height={20} className="text-[#2D3B4E80]" />
-            </button>
-          </>
+        {isLoading ? (
+          <Loader />
         ) : (
           <>
-            <div className="flex flex-row justify-between px-4 py-4 bg-[#2D3B4E0A] items-center">
-              <div className="text-[#2D3B4E80] font-semibold text-sm">{`${firstName}'s trip`}</div>
-              <button
-                onClick={() => {
-                  closeHandler();
-                }}
-                className="rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
-              >
-                <CloseIcon
-                  width={20}
-                  height={20}
-                  className="text-[#2D3B4E80]"
+            {!isSmallScreens ? (
+              <>
+                <div className="min-w-[240px] flex flex-col items-center">
+                  <ImageFullName
+                    traveler_photo={traveler_photo}
+                    firstName={firstName}
+                    lastName={lastName}
+                  />
+                  <hr
+                    style={{ backgroundColor: "#2D3B4E14" }}
+                    className="w-[184px] text-center !h-px"
+                  />
+                  <PersonalInfo
+                    traveler={traveler}
+                    babies={babies}
+                    return_transfer={return_transfer}
+                    early_checkin={early_checkin}
+                    late_checkout={late_checkout}
+                  />
+                </div>
+                <div className="h-full bg-[#2D3B4E14] w-[1px]"></div>
+                <TransferDetailsGrid
+                  transferDetails={transferDetails}
+                  datetime={datetime}
                 />
-              </button>
-            </div>
-            <TransferDetailsGrid
-              transferDetails={transferDetails}
-              datetime={datetime}
-              isSmallScreens={isSmallScreens}
-            />
-            <hr
-              style={{ backgroundColor: "#2D3B4E14" }}
-              className="w-[90%] text-center !h-px mx-auto"
-            />
-            <TransferCardDetailsGuest
-              traveler_photo={traveler_photo}
-              phone_number={traveler?.phone_number}
-              country={traveler?.country}
-              firstName={firstName}
-              lastName={lastName}
-              renderValue={renderValue}
-            />
+                <button
+                  onClick={() => {
+                    closeHandler();
+                  }}
+                  className="absolute top-6 right-6 rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
+                >
+                  <CloseIcon
+                    width={20}
+                    height={20}
+                    className="text-[#2D3B4E80]"
+                  />
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="flex flex-row justify-between px-4 py-4 bg-[#2D3B4E0A] items-center">
+                  <div className="text-[#2D3B4E80] font-semibold text-sm">{`${firstName}'s trip`}</div>
+                  <button
+                    onClick={() => {
+                      closeHandler();
+                    }}
+                    className="rounded-full w-[34px] h-[34px] bg-[#2D3B4E0D] flex justify-center items-center"
+                  >
+                    <CloseIcon
+                      width={20}
+                      height={20}
+                      className="text-[#2D3B4E80]"
+                    />
+                  </button>
+                </div>
+                <TransferDetailsGrid
+                  transferDetails={transferDetails}
+                  datetime={datetime}
+                  isSmallScreens={isSmallScreens}
+                />
+                <hr
+                  style={{ backgroundColor: "#2D3B4E14" }}
+                  className="w-[90%] text-center !h-px mx-auto"
+                />
+                <TransferCardDetailsGuest
+                  traveler_photo={traveler_photo}
+                  phone_number={traveler?.phone_number}
+                  country={traveler?.country}
+                  firstName={firstName}
+                  lastName={lastName}
+                  renderValue={renderValue}
+                />
+              </>
+            )}
           </>
         )}
       </div>

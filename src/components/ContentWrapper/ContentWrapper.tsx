@@ -4,6 +4,7 @@ import { getLastPathSegment, isValidRedirectLink } from "../../hooks";
 import { linksMapping } from "../../constants";
 import { useTransferContext } from "../../context/TransferContext";
 import { useResponsive } from "ahooks";
+import Loader from "../Loader/Loader";
 
 type ContentWrapperPropsType = {
   isLoading?: boolean;
@@ -41,9 +42,7 @@ const ContentWrapper: React.FC<ContentWrapperPropsType> = ({
       }}
     >
       {isLoading ? (
-        <div className="flex items-center justify-center p-4">
-          <div className="w-12 h-12 border-4 border-t-[#6AE2A6] rounded-full animate-spin"></div>
-        </div>
+        <Loader />
       ) : (
         <>
           {!isSmallScreens && (
